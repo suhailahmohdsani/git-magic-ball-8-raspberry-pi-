@@ -4,7 +4,7 @@ from sense_hat import SenseHat
 
 sense = SenseHat()
 
-sense.show_message('Ask Me A Question Bootiful', text_colour=(255, 0, 255), scroll_speed=0.03)
+sense.show_message('Ask Me A Question Bootiful', text_colour=(255, 0, 255), scroll_speed=0.02)
 sleep(3)
 
 replies = [('i dunno abt that...', (255, 255, 0)), ('YES! CONFORM', (0, 255, 0)), ('yu yao disagree lmao', (255, 0, 0))]
