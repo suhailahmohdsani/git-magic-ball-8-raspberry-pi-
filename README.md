@@ -7,7 +7,7 @@ When movement is detected, the Sense HAT's LED matrix displays one of three rand
 Responses:
   - "Maybe" — Yellow
   - "Yes" — Green
-  - "yu yao disagrees lmao" — Red
+  - "No" — Red
 
 How It Works
   - The Raspberry Pi displays "Ask Me A Question" in purple
