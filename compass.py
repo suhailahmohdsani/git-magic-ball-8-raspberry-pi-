@@ -2,6 +2,12 @@ from sense_hat import SenseHat
 
 sense = SenseHat()
 
+sense.set_imu_config(
+    compass_enabled=True,
+    gyro_enabled=True,
+    accel_enabled=False
+)
+
 while True:
     heading = sense.get_compass()
 
