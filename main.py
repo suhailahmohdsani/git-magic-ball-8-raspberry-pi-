@@ -18,6 +18,6 @@ while True:
 
     if x > 2 or y > 2 or z > 2:
         reply, colour = choice(replies)
-        sense.show_message(reply, text_colour=colour, scroll_speed=0.1)
+        sense.show_message(reply, text_colour=colour, scroll_speed=0.05)
     else:
         sense.clear()
