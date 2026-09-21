@@ -4,7 +4,7 @@ from sense_hat import SenseHat
 
 sense = SenseHat()
 
-sense.show_message('Ask Me A Question Bootiful', text_colour=(255, 0, 255), scroll_speed=0.1)
+sense.show_message('Ask Me A Question Bootiful', text_colour=(255, 0, 255), scroll_speed=0.01)
 sleep(3)
 
 replies = [('i dunno abt that...', (255, 255, 0)), ('YES! CONFORM', (0, 255, 0)), ('yu yao disagree lmao', (255, 0, 0))]
@@ -18,6 +18,6 @@ while True:
 
     if x > 2 or y > 2 or z > 2:
         reply, colour = choice(replies)
-        sense.show_message(reply, text_colour=colour, scroll_speed=0.03)
+        sense.show_message(reply, text_colour=colour, scroll_speed=0.01)
     else:
         sense.clear()
