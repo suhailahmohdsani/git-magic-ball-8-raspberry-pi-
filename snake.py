@@ -4,36 +4,17 @@ import time
 
 sense = SenseHat()
 
-# Colours
 snake_colour = [0, 255, 0]
 food_colour = [255, 0, 0]
-off = [0, 0, 0]
 
-# Snake starts in the middle
-snake = [(4, 4), (3, 4), (2, 4)]
-
-# Direction: right
 direction = (1, 0)
 
-# Create food
-def create_food():
+
+def create_food(snake):
     while True:
         food = (random.randint(0, 7), random.randint(0, 7))
         if food not in snake:
             return food
-
-food = create_food()
-
-
-def draw():
-    sense.clear()
-
-    # Draw snake
-    for x, y in snake:
-        sense.set_pixel(x, y, snake_colour)
-
-    # Draw food
-    sense.set_pixel(food[0], food[1], food_colour)
 
 
 def change_direction(event):
@@ -57,38 +38,56 @@ def change_direction(event):
 
 sense.stick.direction_any = change_direction
 
+
 while True:
 
-    # Move snake
-    head_x, head_y = snake[0]
-    dx, dy = direction
+    # Reset game
+    snake = [(4, 4), (3, 4), (2, 4)]
+    direction = (1, 0)
+    food = create_food(snake)
 
-    new_head = (head_x + dx, head_y + dy)
+    game_over = False
 
-    # Check wall collision
-    if not (0 <= new_head[0] <= 7 and 0 <= new_head[1] <= 7):
-        break
+    while not game_over:
 
-    # Check itself
-    if new_head in snake:
-        break
+        # Move snake
+        head_x, head_y = snake[0]
+        dx, dy = direction
 
-    snake.insert(0, new_head)
+        new_head = (head_x + dx, head_y + dy)
 
-    # Check food
-    if new_head == food:
-        food = create_food()
-    else:
-        snake.pop()
+        # Hit wall
+        if not (0 <= new_head[0] <= 7 and 0 <= new_head[1] <= 7):
+            game_over = True
+            break
 
-    draw()
+        # Hit itself
+        if new_head in snake:
+            game_over = True
+            break
 
-    time.sleep(0.3)
+        snake.insert(0, new_head)
 
+        # Eat food
+        if new_head == food:
+            food = create_food(snake)
+        else:
+            snake.pop()
 
-# Game over
-sense.clear()
-sense.show_letter("X")
+        # Draw
+        sense.clear()
 
-time.sleep(2)
-sense.clear()
+        for x, y in snake:
+            sense.set_pixel(x, y, snake_colour)
+
+        sense.set_pixel(food[0], food[1], food_colour)
+
+        time.sleep(0.3)
+
+    # Game over screen
+    sense.show_letter("X")
+    time.sleep(1)
+
+    # Automatically restart
+    sense.clear()
+    time.sleep(0.5)
