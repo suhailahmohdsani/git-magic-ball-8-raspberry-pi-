@@ -13,13 +13,13 @@ GREEN = (0, 200, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 
-BIRD_X = 1                # bird stays in a fixed column
-GRAVITY = 0.5              # how much downward velocity builds up each tick
-FLAP_STRENGTH = -1.6        # negative = upward (y=0 is the top of the screen)
+BIRD_X = 1               
+GRAVITY = 0.5              
+FLAP_STRENGTH = -1.6       
 MAX_FALL_SPEED = 2.5
-TICK_INTERVAL = 0.2        # seconds per game "frame" (lower = faster game)
-PIPE_SPAWN_TICKS = 6       # how many ticks between new pipes
-PIPE_GAP_SIZE = 3          # how tall the gap in each pipe is
+TICK_INTERVAL = 0.2        
+PIPE_SPAWN_TICKS = 6      
+PIPE_GAP_SIZE = 3          
 
 
 def make_pipe():
@@ -36,7 +36,6 @@ def draw(bird_y, pipes, flash=None):
         if not (0 <= x < GRID):
             continue
         for y in range(GRID):
-            # skip drawing inside the gap
             if pipe["gap_start"] <= y < pipe["gap_start"] + PIPE_GAP_SIZE:
                 continue
             pixels[y * GRID + x] = GREEN
@@ -58,7 +57,7 @@ def flash_screen(color, times=3):
 
 def check_collision(bird_y, pipes):
     if bird_y <= 0 or bird_y >= GRID - 1:
-        return True  # hit ceiling or floor
+        return True  
 
     bird_row = int(round(bird_y))
 
@@ -80,7 +79,6 @@ def play_round():
     draw(bird_y, pipes)
 
     while True:
-        # --- handle input: any press = flap ---
         flapped = False
         for event in sense.stick.get_events():
             if event.action != "pressed":
@@ -94,13 +92,11 @@ def play_round():
         else:
             velocity = min(velocity + GRAVITY, MAX_FALL_SPEED)
 
-        bird_y += velocity * 0.3  # scale down so movement isn't too jumpy
+        bird_y += velocity * 0.3  
 
-        # --- move pipes ---
         for pipe in pipes:
             pipe["x"] -= 1
 
-        # remove pipes that scrolled off-screen, award a point for each
         still_on_screen = []
         for pipe in pipes:
             if pipe["x"] < 0:
@@ -114,7 +110,6 @@ def play_round():
             pipes.append(make_pipe())
             ticks_since_spawn = 0
 
-        # --- collision check ---
         if check_collision(bird_y, pipes):
             return "lost", score
 

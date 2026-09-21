@@ -41,7 +41,6 @@ sense.stick.direction_any = change_direction
 
 while True:
 
-    # Reset game
     snake = [(4, 4), (3, 4), (2, 4)]
     direction = (1, 0)
     food = create_food(snake)
@@ -50,31 +49,26 @@ while True:
 
     while not game_over:
 
-        # Move snake
         head_x, head_y = snake[0]
         dx, dy = direction
 
         new_head = (head_x + dx, head_y + dy)
 
-        # Hit wall
         if not (0 <= new_head[0] <= 7 and 0 <= new_head[1] <= 7):
             game_over = True
             break
 
-        # Hit itself
         if new_head in snake:
             game_over = True
             break
 
         snake.insert(0, new_head)
 
-        # Eat food
         if new_head == food:
             food = create_food(snake)
         else:
             snake.pop()
 
-        # Draw
         sense.clear()
 
         for x, y in snake:
@@ -84,10 +78,8 @@ while True:
 
         time.sleep(0.3)
 
-    # Game over screen
     sense.show_letter("X")
     time.sleep(1)
 
-    # Automatically restart
     sense.clear()
     time.sleep(0.5)

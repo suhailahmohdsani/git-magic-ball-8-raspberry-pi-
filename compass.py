@@ -9,7 +9,6 @@ sense.set_imu_config(
     accel_enabled=False
 )
 
-# Simple 3x5 font
 font = {
     "0": ["111", "101", "101", "101", "111"],
     "1": ["010", "110", "010", "010", "111"],
@@ -47,7 +46,7 @@ while True:
 
     sense.clear()
 
-    # Show direction as a large letter
+  
     sense.show_letter(direction[0])
 
     time.sleep(0.5)
