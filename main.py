@@ -7,7 +7,7 @@ sense = SenseHat()
 sense.show_message('Ask Me A Question', text_colour=(255, 0, 255), scroll_speed=0.05 )
 sleep(3)
 
-replies = [('Maybe not bih', (255, 255, 0)), ('Yes', (0, 255, 0)), ('No', (255, 0, 0))]
+replies = [('Maybe', (255, 255, 0)), ('Yes', (0, 255, 0)), ('No', (255, 0, 0))]
 
 while True:
     x, y, z = sense.get_accelerometer_raw().values()
